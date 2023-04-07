@@ -1,18 +1,4 @@
-import {
-	Alert,
-	Box,
-	Button,
-	Card,
-	Link,
-	Table,
-	TableBody,
-	TableCell,
-	TableHead,
-	TableRow,
-	TextField,
-	Typography,
-} from "@mui/material";
-import { textAlign } from "@mui/system";
+import { Box, Button, Card, Link, TextField, Typography } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
 
 export function Signup() {
