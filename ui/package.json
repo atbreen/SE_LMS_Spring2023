@@ -1,5 +1,6 @@
 {
-  "name": "the-ledger",
+  "name": "lms-ui",
+  "homepage": "https://atbreen.github.io/SE_LMS_Spring2023/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
