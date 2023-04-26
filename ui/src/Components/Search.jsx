@@ -1,5 +1,14 @@
 import {
+  Alert,
+  Box,
+  Button,
   Card,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  IconButton,
+  Modal,
   Table,
   TableBody,
   TableCell,
@@ -8,13 +17,29 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import { useState } from "react";
-import { useSearchMedia } from "../Context/DB";
+import { useCallback, useState } from "react";
+import { useHandleAddBorrow, useSearchMedia } from "../Context/DB";
 
 export function Search() {
+  const handleAddBorrow = useHandleAddBorrow();
   const [searchString, setSearchString] = useState("");
   const media = useSearchMedia(searchString);
+
+  const [open, setOpen] = useState(false);
+  const handleCheckout = useCallback(
+    (item) => () => {
+      setOpen(item);
+    },
+    []
+  );
+  const handleClose = useCallback(() => {
+    setOpen(false);
+  }, []);
+  const handleAccept = useCallback(() => {
+    if (!open) return;
+    handleAddBorrow("0001", open.bookid);
+    setOpen(false);
+  }, [open]);
   return (
     <>
       <Card sx={{ p: 4, m: 4 }}>
@@ -52,7 +77,9 @@ export function Search() {
                   <TableCell>{item.genre}</TableCell>
                   <TableCell align="right">{item.copies}</TableCell>
                   <TableCell align="center">
-                    <AddCircleOutlineIcon />
+                    <Button onClick={handleCheckout(item)} aria-label="add">
+                      Borrow
+                    </Button>
                   </TableCell>
                 </TableRow>
               ))}
@@ -62,6 +89,44 @@ export function Search() {
           <Typography>No Results</Typography>
         ) : null}
       </Card>
+      <Dialog open={!!open} onClose={handleClose}>
+        <DialogTitle>Borrow Media</DialogTitle>
+        <DialogContent>
+          <Typography>
+            <h4>
+              Would you like to borrow <em>{open?.title}</em> ?{" "}
+            </h4>
+          </Typography>
+          <Typography>
+            The date is <strong>{new Date().toLocaleDateString()} </strong> and
+            your borrowed media will be due back{" "}
+            <strong>
+              {" "}
+              {new Date(
+                new Date().valueOf() + 1000 * 60 * 60 * 24 * 7
+              ).toLocaleDateString()}
+            </strong>
+            <br />
+            <br />
+          </Typography>
+          <Alert severity="info">
+            <strong>NOTE:</strong> By clicking confirm, you are agreeing to the
+            Library's Terms & Conditions including the payment of late fees if
+            media is not returned, or borrow period is not extended by the due
+            date.
+            <br />
+            <em>Late fee = $0.05 per day.</em>
+          </Alert>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="secondary">
+            Cancel
+          </Button>
+          <Button onClick={handleAccept} variant="contained">
+            Confirm
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 }
