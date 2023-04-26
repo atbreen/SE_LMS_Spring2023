@@ -1,0 +1,26 @@
+{"users": [
+    {
+    "userid": "0001",
+    "firstname": "Jackie",
+    "lastname": "Moore",
+    "emailaddress": "jmoore@email.com",
+    "phonenumber": "222-636-5858",
+    "status": "In Good Standing"
+},
+    {
+    "userid": "0601",
+    "firstname": "Jack",
+    "lastname": "Dunham",
+    "emailaddress": "jdunham@school.edu",
+    "phonenumber": "222-863-5548",
+    "status": "In Good Standing"
+},
+    {
+    "userid": "7706",
+    "firstname": "Marion",
+    "lastname": "Juniper",
+    "emailaddress": "juniem@llc.org",
+    "phonenumber": "222-993-5318",
+    "status": "Delinquent"
+}
+]}

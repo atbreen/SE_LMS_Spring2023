@@ -1,69 +1,62 @@
 import {
-	Card,
-	Table,
-	TableBody,
-	TableCell,
-	TableHead,
-	TableRow,
-	Typography,
+  Button,
+  Card,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+  Typography,
 } from "@mui/material";
+import { useUserHistory } from "../Context/DB";
 
 export function History() {
-	return (
-		<>
-			<Card sx={{ p: 4, m: 4 }}>
-				<Typography variant='h5' sx={{ pb: 2 }}>
-					Previously Checked Out Media
-				</Typography>
-				<Table>
-					<TableHead>
-						<TableRow>
-							<TableCell>Title</TableCell>
-							<TableCell>Author/Creator</TableCell>
-							<TableCell>Due Date</TableCell>
-							<TableCell>Renewal Status</TableCell>
-						</TableRow>
-					</TableHead>
-					<TableBody>
-						<TableRow>
-							<TableCell>This is A Book Title</TableCell>
-							<TableCell>Person Humanson</TableCell>
-							<TableCell>11/11/2022</TableCell>
-							<TableCell>In Good Standing</TableCell>
-						</TableRow>
-						<TableRow>
-							<TableCell>This is Also A Book Title</TableCell>
-							<TableCell>Jack Humanson</TableCell>
-							<TableCell>12/11/2012</TableCell>
-							<TableCell>In Good Standing</TableCell>
-						</TableRow>
-						<TableRow>
-							<TableCell>This is Indeed Another Book Title</TableCell>
-							<TableCell>Maude Humanson</TableCell>
-							<TableCell>12/11/2022</TableCell>
-							<TableCell>Overdue</TableCell>
-						</TableRow>
-						<TableRow>
-							<TableCell>How to Make the Best Pancakes, EVER!</TableCell>
-							<TableCell>Martha Flowers</TableCell>
-							<TableCell>10/11/2022</TableCell>
-							<TableCell>In Good Standing</TableCell>
-						</TableRow>
-						<TableRow>
-							<TableCell>How to Make the Best Pancakes, EVER!</TableCell>
-							<TableCell>Martha Flowers</TableCell>
-							<TableCell>09/11/2022</TableCell>
-							<TableCell>Lost - Fine Paid</TableCell>
-						</TableRow>
-						<TableRow>
-							<TableCell>So You Think You Can Falafel</TableCell>
-							<TableCell>Alberto Smith</TableCell>
-							<TableCell>06/15/2022</TableCell>
-							<TableCell>In Good Standing</TableCell>
-						</TableRow>
-					</TableBody>
-				</Table>
-			</Card>
-		</>
-	);
+  const history = useUserHistory("0001");
+  return (
+    <>
+      <Card sx={{ p: 4, m: 4 }}>
+        <Typography variant="h5" sx={{ pb: 2 }}>
+          Previously Checked Out Media
+        </Typography>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>Title</TableCell>
+              <TableCell>Author/Creator</TableCell>
+              <TableCell>Date Borrowed</TableCell>
+              <TableCell>Date Due</TableCell>
+              <TableCell>Renewal Status</TableCell>
+              <TableCell>Actions</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {history.map((h) => (
+              <TableRow key={h.dateborrowed}>
+                <TableCell>{h.book.title}</TableCell>
+                <TableCell>{h.book.author}</TableCell>
+                <TableCell>
+                  {new Date(h.dateborrowed).toLocaleString()}
+                </TableCell>
+                <TableCell>
+                  {h.duedate && new Date(h.duedate).toLocaleString()}
+                </TableCell>
+                <TableCell>
+                  {h.duedate && h.duedate < new Date().toISOString()
+                    ? "Overdue"
+                    : "In Good Standing"}
+                </TableCell>
+                <TableCell>
+                  {!h.duedate ? null : h.duedate < new Date().toISOString() ? (
+                    <Button>Pay Fine</Button>
+                  ) : (
+                    <Button>Return</Button>
+                  )}
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </Card>
+    </>
+  );
 }

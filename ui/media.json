@@ -1,0 +1,28 @@
+{
+  "media": [
+    {
+      "category": "Book",
+      "title": "Woah, A Book -- A Memoir",
+      "author": "Person Humanson",
+      "isbn": "02-1115643",
+      "genre": "Non-Fiction",
+      "copies": 10
+    },
+    {
+      "category": "E-Book",
+      "title": "I had More to Say -- Another Memoir",
+      "author": "Person Humanson",
+      "isbn": "02-1164643",
+      "genre": "Non-Fiction",
+      "copies": 2
+    },
+    {
+      "category": "Book",
+      "title": "I Guess I could be Done Now -- Yet Another Memoir",
+      "author": "Person Humanson",
+      "isbn": "02-1680143",
+      "genre": "Non-Fiction",
+      "copies": 5
+    }
+  ]
+}

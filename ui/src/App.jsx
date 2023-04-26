@@ -8,37 +8,40 @@ import { Login } from "./Components/Login";
 import { Search } from "./Components/Search";
 import { Signup } from "./Components/Signup";
 import { Users } from "./Components/Users";
+import { DBProvider } from "./Context/DB";
 
 const theme = createTheme();
 
 export default function App() {
-	return (
-		<ThemeProvider theme={theme}>
-			<CssBaseline />
-			<HashRouter>
-				<CommonMenu />
-				<Switch>
-					<Route path='/' exact>
-						<Home />
-					</Route>
-					<Route path='/login' exact>
-						<Login />
-					</Route>
-					<Route path='/signup' exact>
-						<Signup />
-					</Route>
-					<Route path='/history' exact>
-						<History />
-					</Route>
-					<Route path='/users' exact>
-						<Users />
-					</Route>
-					<Route path='/search' exact>
-						<Search />
-					</Route>
-					<Redirect to='/' />
-				</Switch>
-			</HashRouter>
-		</ThemeProvider>
-	);
+  return (
+    <DBProvider>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <HashRouter>
+          <CommonMenu />
+          <Switch>
+            <Route path="/" exact>
+              <Home />
+            </Route>
+            <Route path="/login" exact>
+              <Login />
+            </Route>
+            <Route path="/signup" exact>
+              <Signup />
+            </Route>
+            <Route path="/history" exact>
+              <History />
+            </Route>
+            <Route path="/users" exact>
+              <Users />
+            </Route>
+            <Route path="/search" exact>
+              <Search />
+            </Route>
+            <Redirect to="/" />
+          </Switch>
+        </HashRouter>
+      </ThemeProvider>
+    </DBProvider>
+  );
 }
