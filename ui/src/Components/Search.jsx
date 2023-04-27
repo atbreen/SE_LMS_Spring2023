@@ -32,10 +32,13 @@ export function Search() {
   const handleClose = useCallback(() => {
     setOpen(false);
   }, []);
+  // eslint-disable-next-line
   const handleAccept = useCallback(() => {
     if (!open) return;
+    // eslint-disable-next-line
     handleAddBorrow("0001", open.bookid);
     setOpen(false);
+    // eslint-disable-next-line
   }, [open]);
   return (
     <>
