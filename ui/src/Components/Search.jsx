@@ -89,6 +89,7 @@ export function Search() {
           <Typography>No Results</Typography>
         ) : null}
       </Card>
+
       <Dialog open={!!open} onClose={handleClose}>
         <DialogTitle>Borrow Media</DialogTitle>
         <DialogContent>
